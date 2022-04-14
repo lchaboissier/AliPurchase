@@ -11,7 +11,7 @@
         Title="AliPurchase - Gestion des achats fournisseurs" Height="450" Width="800"
         WindowState="Maximized">
     <mah:MetroWindow.Resources>
-        <!-- Design template for each item of the Hamburger menue-->
+        <!-- Design template for each item of the Hamburger menu -->
         <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
             <Grid Height="48">
                 <Grid.ColumnDefinitions>
