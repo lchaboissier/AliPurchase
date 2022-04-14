@@ -1,0 +1,124 @@
+﻿<mah:MetroWindow x:Class="AliPurchase.Views.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:AliPurchase.Views"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:components="clr-namespace:AliPurchase.Views.Components"
+        mc:Ignorable="d"
+        Title="AliPurchase - Gestion des achats fournisseurs" Height="450" Width="800"
+        WindowState="Maximized">
+    <mah:MetroWindow.Resources>
+        <!-- Design template for each item of the Hamburger menue-->
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
+            <Grid Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <!-- Textblock for the icon odf the item menu : a glyph is a icon coming from a front -->
+                <iconPacks:PackIconMaterial Grid.Column="0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Focusable="True"
+                                            Kind="{Binding Glyph}" />
+                
+                <!-- Textblock for the icon odf the item menu : it is called a label-->
+                <TextBlock Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        Foreground="White"
+                        Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>
+    </mah:MetroWindow.Resources>
+
+    <mah:HamburgerMenu x:Name="HamburgerMenuControl"
+                        Foreground="White"
+                        PaneBackground="#FF444444"
+                        IsPaneOpen="False"
+                        DisplayMode="CompactInline"
+                        ItemTemplate="{StaticResource MenuItemTemplate}"
+                        OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                        ItemClick="HamburgerMenuControl_OnItemClick"
+                        OptionsItemClick="HamburgerMenuControl_OnItemClick">
+        
+        <!-- Items -->
+        <mah:HamburgerMenu.ItemsSource>
+            <mah:HamburgerMenuItemCollection>
+                
+                <mah:HamburgerMenuGlyphItem Glyph="Home" Label="Tableau de bord">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <views:DashboardView/>
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                
+                <mah:HamburgerMenuGlyphItem Glyph="ChartAreaspline" Label="Stocks">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <views:StocksView/>
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                
+                <mah:HamburgerMenuGlyphItem Glyph="Store" Label="Fournisseurs">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <views:SuppliersView/>
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                
+                <mah:HamburgerMenuGlyphItem Glyph="Purse" Label="Commandes fournisseurs">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <views:SuppliersOrdersView/>
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                
+            </mah:HamburgerMenuItemCollection>
+        </mah:HamburgerMenu.ItemsSource>
+           
+        <!-- Options -->
+        <mah:HamburgerMenu.OptionsItemsSource>
+            <mah:HamburgerMenuItemCollection>
+                
+                <mah:HamburgerMenuGlyphItem Glyph="SettingsHelper" Label="A propos">
+                    <mah:HamburgerMenuGlyphItem.Tag>
+                        <views:AboutView/>
+                    </mah:HamburgerMenuGlyphItem.Tag>
+                </mah:HamburgerMenuGlyphItem>
+                
+            </mah:HamburgerMenuItemCollection>
+        </mah:HamburgerMenu.OptionsItemsSource>
+        
+        <!--  Content : will receive the view to load and his title -->
+        <mah:HamburgerMenu.ContentTemplate>
+            <DataTemplate DataType="{x:Type mah:HamburgerMenuItem}">
+                <Grid x:Name="TheContentGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Border and textblock for the view title -->
+                    <Border Grid.Row="0"
+                    Background="#FF444444">
+                        <TextBlock x:Name="Header"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="24"
+                            Foreground="White"
+                            Text="{Binding Label}" />
+                    </Border>
+                    <!-- The view will be called here by the tag -->
+                    <Frame x:Name="TheContent"
+                            Grid.Row="1"
+                            Focusable="False"
+                            Foreground="#FF444444"
+                            Content="{Binding Tag}" />
+                </Grid>
+            </DataTemplate>
+        </mah:HamburgerMenu.ContentTemplate>
+
+    </mah:HamburgerMenu>
+
+</mah:MetroWindow>
